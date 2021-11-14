@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EmployerVO {
+public class EmployeeVO {
 
     @JsonProperty("id")
     private String id;
@@ -25,7 +25,7 @@ public class EmployerVO {
     @JsonProperty("company")
     private String company;
 
-    public EmployerVO(){}
+    public EmployeeVO(){}
 
 
     public String getFirstName() {

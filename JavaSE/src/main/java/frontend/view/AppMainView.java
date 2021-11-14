@@ -3,10 +3,7 @@ package frontend.view;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class AppMainView extends Application {
@@ -23,19 +20,40 @@ public class AppMainView extends Application {
 
     private Scene createScene() {
         StackPane stackPane = createStackPane();
-        Scene scene = new Scene(stackPane, 700,700);
+        Scene scene = new Scene(stackPane, 800,800);
         //configureBorder(stackPane);
         return scene;
     }
 
     private StackPane createStackPane() {
         StackPane stackPane = new StackPane();
+        VBox topVbox = addTopVBox();
+        Pane deleteBtnPane = addDeleteBtnPane();
+
+
+
+
 
         return stackPane;
-
     }
 
 
+
+    private VBox addTopVBox() {
+        VBox topVbox = new VBox();
+        HBox radioBtnHbox = createRadioBtnHBox();
+
+        Pane addEmployeePane = getAddEmployeePane();
+        Pane addCompanyPane = getAddCompanyPane();
+
+        topVbox.getChildren().addAll(radioBtnHbox, addEmployeePane, addCompanyPane);
+        return topVbox;
+    }
+
+
+
+    private Pane addDeleteBtnPane() {
+    }
 
     private static void configureBorder(final Region region){
         region.setStyle("-fx-background-color: white;"

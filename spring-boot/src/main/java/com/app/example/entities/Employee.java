@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Employer {
+public class Employee {
 
     @Id
     @NotNull
@@ -38,7 +38,7 @@ public class Employer {
     @Column(name = "company")
     private String company;
 
-    public Employer(String id, String firstName, String lastName, String position, String email, String company) {
+    public Employee(String id, String firstName, String lastName, String position, String email, String company) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

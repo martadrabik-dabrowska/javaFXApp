@@ -30,7 +30,7 @@ public class Company implements Serializable {
     private String nip;
 
     @OneToMany(mappedBy = "company", orphanRemoval = true)
-    private List<Employer> employers;
+    private List<Employee> employers;
 
     public Company(String name, String address, String nip){
         this.name = name;
@@ -70,11 +70,11 @@ public class Company implements Serializable {
         this.nip = nip;
     }
 
-    public List<Employer> getEmployers() {
+    public List<Employee> getEmployers() {
         return employers;
     }
 
-    public void setEmployers(List<Employer> employers) {
+    public void setEmployers(List<Employee> employers) {
         this.employers = employers;
     }
 }
