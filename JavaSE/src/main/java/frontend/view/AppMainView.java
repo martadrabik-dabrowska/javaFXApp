@@ -136,14 +136,31 @@ public class AppMainView extends Application {
         VBox employeeVBox = new VBox();
         employeeVBox.getChildren().addAll(employeeHBox,addBtn);
         return employeeVBox;
-
     }
 
 
 
 
     public Pane getAddCompanyPane(){
+        HBox companyHBox = new HBox();
+        TextField name = new TextField();
+        name.setPromptText("Name");
+        TextField address = new TextField();
+        address.setPromptText("Address");
+        TextField nip = new TextField();
+        nip.setPromptText("Nip");
+        companyHBox.getChildren().addAll(name, address, nip);
 
+        Button addBtn = new Button("Add");
+        addBtn.setOnAction(p-> {
+            CompanyVO companyVO = createNewCompany(name, address, nip);
+            companyBD.saveCompany(companyVO);
+            clearTextField(name, address, nip);
+            refreshDataCompanyTable();
+        });
+        VBox companyVBox = new VBox();
+        companyVBox.getChildren().addAll(companyHBox, addBtn);
+        return companyVBox;
     }
 
 
