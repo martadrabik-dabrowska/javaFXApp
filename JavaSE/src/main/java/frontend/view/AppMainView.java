@@ -1,5 +1,7 @@
 package frontend.view;
 
+import frontend.business.CompanyBD;
+import frontend.business.EmployeeBD;
 import frontend.model.CompanyVO;
 import frontend.model.EmployeeVO;
 import javafx.application.Application;
@@ -10,7 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class AppMainView extends Application {
@@ -18,6 +20,15 @@ public class AppMainView extends Application {
     private TableView<CompanyVO> companyTableView;
 
     private TableView<EmployeeVO> workersTableView;
+    @Autowired
+    private CompanyBD companyBD;
+    @Autowired
+    private EmployeeBD employeeBD;
+
+    public AppMainView(){
+        this.companyBD = new CompanyBD();
+        this.employeeBD = new EmployeeBD();
+    }
 
 
 
