@@ -80,7 +80,7 @@ public class AppMainView extends Application {
         return topVbox;
     }
 
-    public HBox createRadioBtnHBox(){
+    private HBox createRadioBtnHBox(){
         VBox addingNewItemVBox = new VBox();
 
         HBox radioBtnHbox = new HBox();
@@ -125,7 +125,7 @@ public class AppMainView extends Application {
         return radioBtnHbox;
     }
 
-    public Pane getAddEmployeePane(){
+    private Pane getAddEmployeePane(){
         HBox employeeHBox = new HBox();
         TextField firstName = new TextField();
         firstName.setPromptText("First name");
@@ -152,7 +152,9 @@ public class AppMainView extends Application {
 
 
 
-    public Pane getAddCompanyPane(){
+
+
+    private Pane getAddCompanyPane(){
         HBox companyHBox = new HBox();
         TextField name = new TextField();
         name.setPromptText("Name");
@@ -175,7 +177,7 @@ public class AppMainView extends Application {
     }
 
 
-    public Pane addDeleteBtnPane() {
+    private Pane addDeleteBtnPane() {
     }
 
     private static void configureBorder(final Region region){
