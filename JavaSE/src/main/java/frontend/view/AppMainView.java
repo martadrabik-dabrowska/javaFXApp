@@ -149,6 +149,33 @@ public class AppMainView extends Application {
         return employeeVBox;
     }
 
+    private EmployeeVO createNewEmployee(TextField firstName, TextField lastName, TextField position, TextField email){
+        EmployeeVO employeeVO = new EmployeeVO();
+        employeeVO.setFirstName(firstName.getText());
+        employeeVO.setLastName(lastName.getText());
+        employeeVO.setPosition(position.getText());
+        employeeVO.setEmail(email.getText());
+        employeeVO.setCompany(getSelectedCompany().getId());
+        return employeeVO;
+    }
+
+    private CompanyVO getSelectedCompany(){
+
+
+    }
+
+    private void clearTextField(TextField ...textFields){
+        for (TextField textField: textFields) {
+            textField.clear();
+        }
+    }
+
+    private void refreshDataEmployeesTable(){
+
+    }
+
+
+
 
 
 
@@ -176,9 +203,46 @@ public class AppMainView extends Application {
         return companyVBox;
     }
 
+    private CompanyVO createNewCompany(TextField name, TextField address, TextField nip){
+        CompanyVO companyVO = new CompanyVO();
+        companyVO.setName(name.getText());
+        companyVO.setAddress(address.getText());
+        companyVO.setNip(nip.getText());
+        return companyVO;
+    }
+
+    private void refreshDataCompanyTable(){
+
+    }
+
 
     private Pane addDeleteBtnPane() {
+        HBox deleteBtnHbox = new HBox();
+        Button deleteBtn = new Button("Delete");
+        deleteBtn.setOnAction(p->removeAction());
+        deleteBtnHbox.getChildren().add(deleteBtn);
+        return deleteBtnHbox;
     }
+
+
+    private void removeAction(){
+        EmployeeVO selectedEmployee = getSelectedEmployee();
+        if (selectedEmployee != null){
+            employeeBD.remove(selectedEmployee);
+            refreshDataEmployeesTable();
+        }else {
+            CompanyVO selectedCompany = getSelectedCompany();
+            if (selectedCompany != null){
+                companyBD.remove(selectedCompany);
+                refreshDataCompanyTable();
+            }
+        }
+    }
+    private EmployeeVO getSelectedEmployee(){
+        
+
+    }
+
 
     private static void configureBorder(final Region region){
         region.setStyle("-fx-background-color: white;"
