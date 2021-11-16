@@ -1,6 +1,7 @@
 package frontend.business;
 
 
+import frontend.model.CompanyVO;
 import frontend.model.EmployeeVO;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,5 +22,10 @@ public class EmployeeBD {
         HttpEntity httpEntity = new HttpEntity(employeeVO, httpHeaders);
         String url = "http://localhost:8092/newemployee";
         restTemplate.postForEntity(url,employeeVO, String.class);
+    }
+    public void remove(EmployeeVO selectedEmployee){
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://localhost:8092/deleteemployee/{id}";
+        restTemplate.delete(url, selectedEmployee.getId());
     }
 }

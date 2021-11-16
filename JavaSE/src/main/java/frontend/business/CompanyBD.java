@@ -26,9 +26,16 @@ public class CompanyBD {
         HttpEntity httpEntity = new HttpEntity(companyVO, httpHeaders);
         String url = "http://localhost:8092/newcompany/";
         restTemplate.postForEntity(url,companyVO, String.class);
-
-
     }
+
+    public void remove(CompanyVO selectedCompany){
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "http://localhost:8092/deletecompany/{id}";
+        restTemplate.delete(url, selectedCompany.getId());
+    }
+
+
+
 
 
 
