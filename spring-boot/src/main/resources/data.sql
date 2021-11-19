@@ -1,18 +1,11 @@
-insert into company(id, name, address, nip) VALUES('1','PocztaSG','Lublin','3334544345');
-insert into company(id, name, address, nip) VALUES('2','PocztaSG','Lublin','3334544345');
-insert into company(id, name, address, nip) VALUES('3','AntyMol','lublin','3332300989');
-insert into company(id, name, address, nip) VALUES('4','RobakiPrecz','2222','1232113333');
+insert into company(id, name, address, nip) VALUES('1','Post Office London','London','000011111');
+insert into company(id, name, address, nip) VALUES('2','SunnyMonday','New York','989877345');
 
-insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('1','Tomasz','Atkin','sprzedawca','tom@gmail.com', '2');
-insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('2','Jacek','Sadowy','sprzedawca','grocery@gmail.com', '2');
 
-insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('3','Marcin','Anik','sprzedawca','pocztasg@gmail.com', '2');
-insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('4','Krystian','Sudowski','manager','pocztasg.kontakt@gmail.com', '2');
+insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('1','Tom','Mouse','seller','seller.tom@gmail.com', '1');
+insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('2','Greg','White','manager','greg@gmail.com', '1');
 
-insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('5','Daniel','Krępski','sprzedawca','antymol@gmail.com', '3');
-insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('6','Mariusz','Damięcki','sprzedawca','antymol@gmail.com', '3');
+insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('3','Mark','Blackman','model','mark.model@gmail.com', '2');
+insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('4','Chris','Pitt','model','chris.model@gmail.com', '2');
 
-insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('7','Daniel','Adamski','sprzedawca','robakiprecz@gmail.com', '4');
-insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('8','Rafał','Szyszkowski','manager','robakiprecz.kontakt@gmail.com', '4');
-insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('9','Rafał','Sulicki','dsa','robakiprecz.k@gmail.com', '4');
-insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('10','Aleksander','Sadowski','sprzedawca','robakiprecz@gmail.com', '4');
+insert into  employee(id ,firstName, lastName, position, email, company) VALUES ('5','Patrick','Savage','manager','patryc.s.manager@gmail.com', '3');
