@@ -1,6 +1,6 @@
-package com.app.example.repository;
+package app.repository;
 
-import com.app.example.entities.Company;
+import app.entities.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

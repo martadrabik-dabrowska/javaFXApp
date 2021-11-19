@@ -1,29 +1,27 @@
-package com.app.example.entities;
+package app.entities;
 
 
 import com.sun.istack.NotNull;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class Employee {
+public class Employee implements Serializable {
 
     @Id
-    @NotNull
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
     @NotNull
-    @Column(name = "firstName")
+    @Column(name = "firstname")
     private String firstName;
 
     @NotNull
-    @Column(name = "lastName")
+    @Column(name = "lastname")
     private String lastName;
 
     @NotNull
@@ -35,7 +33,7 @@ public class Employee {
     private String email;
 
     @NotNull
-    @Column(name = "company")
+    @Column(name = "company", nullable = false)
     private String company;
 
     public Employee(String id, String firstName, String lastName, String position, String email, String company) {
@@ -45,6 +43,10 @@ public class Employee {
         this.position = position;
         this.email = email;
         this.company = company;
+    }
+
+    public Employee(){
+
     }
 
     public String getId() {

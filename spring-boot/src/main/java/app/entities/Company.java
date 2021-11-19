@@ -1,4 +1,4 @@
-package com.app.example.entities;
+package app.entities;
 
 
 import com.sun.istack.NotNull;
@@ -12,7 +12,6 @@ import java.util.List;
 public class Company implements Serializable {
 
     @Id
-    @NotNull
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
@@ -30,12 +29,23 @@ public class Company implements Serializable {
     private String nip;
 
     @OneToMany(mappedBy = "company", orphanRemoval = true)
-    private List<Employee> employers;
+    private List<Employee> employees;
+
+    public Company(String id, String name, String address, String nip) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.nip = nip;
+    }
 
     public Company(String name, String address, String nip){
         this.name = name;
         this.address = address;
         this.nip = nip;
+    }
+
+    public Company(){
+
     }
 
     public String getId() {
@@ -70,11 +80,11 @@ public class Company implements Serializable {
         this.nip = nip;
     }
 
-    public List<Employee> getEmployers() {
-        return employers;
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setEmployers(List<Employee> employers) {
-        this.employers = employers;
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }
