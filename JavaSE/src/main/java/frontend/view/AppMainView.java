@@ -68,10 +68,6 @@ public class AppMainView extends Application {
         VBox topVbox = addTopVBox();
         Pane deleteBtnPane = addDeleteBtnPane();
 
-        //TextField searchTextField = getSearchTextField();
-        companyTableView = getCompanyTableView();
-
-        employeesTableView = getEmployeesTableView();
         TextField search = new TextField();
         search.setPromptText("Wyszukaj");
         search.textProperty().addListener((observable,oldValue,newValue)->{
@@ -79,6 +75,12 @@ public class AppMainView extends Application {
             //refreshDataEmployersTable();
             refreshDataCompanyTable();
         });
+        //TextField searchTextField = getSearchTextField();
+        companyTableView = getCompanyTableView();
+        refreshDataCompanyTable();
+
+        employeesTableView = getEmployeesTableView();
+
         VBox vBox = new VBox();
         vBox.setSpacing(10);
         vBox.getChildren().addAll(topVbox,deleteBtnPane, search, companyTableView, employeesTableView);
