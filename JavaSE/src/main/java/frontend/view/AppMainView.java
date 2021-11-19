@@ -7,7 +7,10 @@ import frontend.model.EmployeeVO;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,7 +21,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class AppMainView extends Application {
 
+
+    //
+    private CompanyVO companyVO;
+    ObservableList<CompanyBD> productSearchModelObservableList = FXCollections.observableArrayList();
+    //
+
+
+
     private TableView<CompanyVO> companyTableView;
+private TableView<CompanyBD> cc;
 
     private TableView<EmployeeVO> employeesTableView;
 
@@ -67,15 +79,8 @@ public class AppMainView extends Application {
         StackPane stackPane = new StackPane();
         VBox topVbox = addTopVBox();
         Pane deleteBtnPane = addDeleteBtnPane();
-
-        TextField search = new TextField();
-        search.setPromptText("Wyszukaj");
-        search.textProperty().addListener((observable,oldValue,newValue)->{
-            searchValue = newValue;
-            //refreshDataEmployersTable();
-            refreshDataCompanyTable();
-        });
-        //TextField searchTextField = getSearchTextField();
+        
+        TextField search = getSearchTextField();
         companyTableView = getCompanyTableView();
         refreshDataCompanyTable();
 
@@ -234,6 +239,7 @@ public class AppMainView extends Application {
         companyVO.setName(name.getText());
         companyVO.setAddress(address.getText());
         companyVO.setNip(nip.getText());
+
         return companyVO;
     }
 
@@ -276,16 +282,16 @@ public class AppMainView extends Application {
     }
 
 
-//    private TextField getSearchTextField(){ // do poprawki
-//        TextField searchTextField = new TextField();
-//        searchTextField.setPromptText("search");
-//        searchTextField.textProperty().addListener((observable, oldValue, newValue)->{
-//            searchValue = newValue;
-//            refreshDataEmployeesTable();
-//            refreshDataCompanyTable();
-//        });
-//        return searchTextField;
-//    }
+    private TextField getSearchTextField(){
+      TextField search = new TextField();
+        search.setPromptText("Search");
+        search.textProperty().addListener((observable,oldValue,newValue)->{
+            searchValue = newValue;
+            refreshDataEmployeesTable();
+            refreshDataCompanyTable();
+        });
+        return search;
+    }
 
     private TableView getCompanyTableView(){
         TableView companyTableView = new TableView();
@@ -296,12 +302,19 @@ public class AppMainView extends Application {
         TableColumn addressTableColumn = new TableColumn("Address");
         TableColumn nipTableColumn = new TableColumn("Nip");
 
+
+
         idTableColumn.setCellValueFactory(new PropertyValueFactory<CompanyVO, String>("id"));
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<CompanyVO, String>("name"));
         addressTableColumn.setCellValueFactory(new PropertyValueFactory<CompanyVO, String>("address"));
         nipTableColumn.setCellValueFactory(new PropertyValueFactory<CompanyVO, String>("nip"));
 
         companyTableView.getColumns().addAll(nameTableColumn, addressTableColumn, nipTableColumn);
+        //
+
+        //companyTableView.setItems(productSearchModelObservableList);  // usunac jak cos
+        //
+
         companyTableView.setOnMouseClicked(e->{
             CompanyVO selectionModel = getSelectedCompany();
             if (selectionModel != null){

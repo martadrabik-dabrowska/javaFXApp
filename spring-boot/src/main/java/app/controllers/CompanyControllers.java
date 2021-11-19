@@ -30,6 +30,9 @@ public class CompanyControllers {
 
     @GetMapping("/companies/{value}")
     List<Company> findByValue(@PathVariable String value){
+        if(value!=null){
+            value = value.toUpperCase();
+        }
         return  companyRepo.findByValue(value);
     }
 
