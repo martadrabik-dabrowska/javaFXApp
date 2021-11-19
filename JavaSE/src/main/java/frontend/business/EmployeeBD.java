@@ -14,6 +14,8 @@ import java.util.Collections;
 @Service
 public class EmployeeBD {
 
+    public EmployeeBD(){}
+
     public ObservableList<EmployeeVO> getEmployeesByCompanyIdAndSearchValue(String companyId, String searchValue){
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders httpHeaders = new HttpHeaders();

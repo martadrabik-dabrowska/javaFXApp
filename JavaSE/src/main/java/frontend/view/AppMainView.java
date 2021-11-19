@@ -21,27 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class AppMainView extends Application {
 
-
-    //
-    private CompanyVO companyVO;
-    ObservableList<CompanyBD> productSearchModelObservableList = FXCollections.observableArrayList();
-    //
-
-
-
     private TableView<CompanyVO> companyTableView;
-private TableView<CompanyBD> cc;
 
     private TableView<EmployeeVO> employeesTableView;
-
-    //
-//
-//    private Pane addEmployeePane;
-//    private Pane addCompanyPane;
-//    private ToggleGroup radioBtnToggleGroup;
-    //
-
-
 
     @Autowired
     private CompanyBD companyBD;
@@ -79,7 +61,7 @@ private TableView<CompanyBD> cc;
         StackPane stackPane = new StackPane();
         VBox topVbox = addTopVBox();
         Pane deleteBtnPane = addDeleteBtnPane();
-        
+
         TextField search = getSearchTextField();
         companyTableView = getCompanyTableView();
         refreshDataCompanyTable();
@@ -135,19 +117,9 @@ private TableView<CompanyBD> cc;
                 }
             }
         });
-
-
-
         topVbox.getChildren().addAll(radioBtnHbox, addEmployeePane, addCompanyPane);
-
-
         return topVbox;
-
     }
-
-
-
-
 
     private Pane getAddEmployeePane(){
         HBox employeeHBox = new HBox();
@@ -159,7 +131,6 @@ private TableView<CompanyBD> cc;
         position.setPromptText("Position");
         TextField email = new TextField();
         email.setPromptText("Email");
-        employeeHBox.getChildren().addAll(firstName, lastName, position, email);
 
         Button addBtn = new Button("Add");
         addBtn.setOnAction(p->{
@@ -168,8 +139,12 @@ private TableView<CompanyBD> cc;
             clearTextField(firstName, lastName, position, email);
             refreshDataEmployeesTable();
         });
+        employeeHBox.getChildren().addAll(firstName, lastName, position, email, addBtn);
+
         VBox employeeVBox = new VBox();
         employeeVBox.getChildren().addAll(employeeHBox,addBtn);
+        //employeeVBox.setVisible(false);
+
         return employeeVBox;
     }
 
@@ -179,23 +154,23 @@ private TableView<CompanyBD> cc;
         employeeVO.setLastName(lastName.getText());
         employeeVO.setPosition(position.getText());
         employeeVO.setEmail(email.getText());
-        CompanyVO companyVO = getSelectedCompany();
-        if(companyVO==null){
-            throw new RuntimeException("No company selected");
-        }
-        employeeVO.setCompany(companyVO.getId());
+
+//        CompanyVO companyVO = getSelectedCompany();
+//        if(companyVO==null){
+//            throw new RuntimeException("No company selected");
+//        }
+//        employeeVO.setCompany(companyVO.getId());
+        employeeVO.setCompany(getSelectedCompany().getId());
         return employeeVO;
     }
 
     private CompanyVO getSelectedCompany(){
         return companyTableView.getSelectionModel().getSelectedItem();
-
-
     }
 
     private void clearTextField(TextField ...textFields){
-        for (TextField textField: textFields) {
-            textField.clear();
+        for (TextField fields : textFields) {
+            fields.clear();
         }
     }
 
@@ -205,7 +180,6 @@ private TableView<CompanyBD> cc;
             ObservableList<EmployeeVO> employeeVOObservableList = employeeBD.getEmployeesByCompanyIdAndSearchValue(selectedCompany.getId(), searchValue);
             employeesTableView.setItems(employeeVOObservableList);
         }
-
     }
 
     private Pane getAddCompanyPane(){
@@ -217,17 +191,18 @@ private TableView<CompanyBD> cc;
         address.setPromptText("Address");
         TextField nip = new TextField();
         nip.setPromptText("Nip");
-        companyHBox.getChildren().addAll(name, address, nip);
 
         Button addBtn = new Button("Add");
+
         addBtn.setOnAction(p-> {
             CompanyVO companyVO = createNewCompany(name, address, nip);
-            refreshDataCompanyTable();
             companyBD.saveCompany(companyVO);
-
-
+            refreshDataCompanyTable();
             clearTextField(name, address, nip);
+
         });
+        companyHBox.getChildren().addAll(name, address, nip);
+
         VBox companyVBox = new VBox();
         companyVBox.getChildren().addAll(companyHBox, addBtn);
         //companyVBox.setVisible(true);
@@ -248,9 +223,7 @@ private TableView<CompanyBD> cc;
             ObservableList<CompanyVO> companiesBySearch = companyBD.getCompaniesBySearch(searchValue);
             companyTableView.setItems(companiesBySearch);
         }
-
     }
-
 
     private Pane addDeleteBtnPane() {
         HBox deleteBtnHbox = new HBox();
@@ -259,7 +232,6 @@ private TableView<CompanyBD> cc;
         deleteBtnHbox.getChildren().add(deleteBtn);
         return deleteBtnHbox;
     }
-
 
     private void removeAction(){
         EmployeeVO selectedEmployee = getSelectedEmployee();
@@ -276,11 +248,7 @@ private TableView<CompanyBD> cc;
     }
     private EmployeeVO getSelectedEmployee(){
         return employeesTableView.getSelectionModel().getSelectedItem();
-
-
-
     }
-
 
     private TextField getSearchTextField(){
       TextField search = new TextField();
@@ -302,23 +270,17 @@ private TableView<CompanyBD> cc;
         TableColumn addressTableColumn = new TableColumn("Address");
         TableColumn nipTableColumn = new TableColumn("Nip");
 
-
-
         idTableColumn.setCellValueFactory(new PropertyValueFactory<CompanyVO, String>("id"));
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<CompanyVO, String>("name"));
         addressTableColumn.setCellValueFactory(new PropertyValueFactory<CompanyVO, String>("address"));
         nipTableColumn.setCellValueFactory(new PropertyValueFactory<CompanyVO, String>("nip"));
 
         companyTableView.getColumns().addAll(nameTableColumn, addressTableColumn, nipTableColumn);
-        //
-
-        //companyTableView.setItems(productSearchModelObservableList);  // usunac jak cos
-        //
 
         companyTableView.setOnMouseClicked(e->{
             CompanyVO selectionModel = getSelectedCompany();
             if (selectionModel != null){
-                refreshDataCompanyTable();
+                refreshDataEmployeesTable();
                 employeesTableView.setVisible(true);
             }else {
                 employeesTableView.setVisible(false);
@@ -346,7 +308,6 @@ private TableView<CompanyBD> cc;
         employeesTableView.setVisible(false);
         return employeesTableView;
     }
-
 
     private static void configureBorder(final Region region){
         region.setStyle("-fx-background-color: white;"

@@ -13,9 +13,6 @@ import java.util.logging.Logger;
 @RestController
 public class EmployeeControllers {
 
-
-
-
     protected final Logger log = Logger.getLogger(getClass().getName());
 
 
