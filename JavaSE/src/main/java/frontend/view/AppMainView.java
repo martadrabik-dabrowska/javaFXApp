@@ -5,12 +5,7 @@ import frontend.business.EmployeeBD;
 import frontend.model.CompanyVO;
 import frontend.model.EmployeeVO;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -25,6 +20,8 @@ public class AppMainView extends Application {
 
     private TableView<EmployeeVO> employeesTableView;
 
+    private Styles styles;
+
     @Autowired
     private CompanyBD companyBD;
 
@@ -36,9 +33,9 @@ public class AppMainView extends Application {
     public AppMainView(){
         this.companyBD = new CompanyBD();
         this.employeeBD = new EmployeeBD();
+        this.styles = new Styles();
+
     }
-
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -47,14 +44,16 @@ public class AppMainView extends Application {
         primaryStage.setHeight(800);
         primaryStage.setScene(createScene());
         primaryStage.show();
-
-
     }
 
     private Scene createScene() {
         StackPane stackPane = createStackPane();
-        //configureBorder(stackPane);
-        return new Scene(stackPane, 800,800);
+
+        stackPane.getStyleClass().add("stack");
+        styles.setBorderStyle(stackPane);
+        Scene scene = new Scene(stackPane, 800, 800);
+
+        return scene;
     }
 
     private StackPane createStackPane() {
@@ -70,36 +69,39 @@ public class AppMainView extends Application {
 
         VBox vBox = new VBox();
         vBox.setSpacing(10);
+
         vBox.getChildren().addAll(topVbox,deleteBtnPane, search, companyTableView, employeesTableView);
+
         stackPane.getChildren().add(vBox);
         return stackPane;
     }
-
-
 
     private VBox addTopVBox() {
         VBox topVbox = new VBox();
 
         HBox radioBtnHbox = new HBox();
-        ToggleGroup radioBtnToggleGroup = new ToggleGroup();
 
-        RadioButton employeeRadioBtn = new RadioButton("Employee");
-        employeeRadioBtn.setToggleGroup(radioBtnToggleGroup);
-        employeeRadioBtn.setSelected(true);
+        ToggleGroup radioBtnToggleGroup = new ToggleGroup();
+        styles.setTopVBoxStyle(topVbox);
 
         RadioButton companyRadioBtn = new RadioButton("Company");
         companyRadioBtn.setToggleGroup(radioBtnToggleGroup);
+        styles.setRadioButtonStyle(companyRadioBtn);
+        companyRadioBtn.setSelected(true);
 
+        RadioButton employeeRadioBtn = new RadioButton("Employee");
+        employeeRadioBtn.setToggleGroup(radioBtnToggleGroup);
 
-        radioBtnHbox.getChildren().addAll(employeeRadioBtn, companyRadioBtn);
-        Pane addEmployeePane = getAddEmployeePane();
+        styles.setRadioButtonStyle(employeeRadioBtn);
+
+        radioBtnHbox.getChildren().addAll(companyRadioBtn, employeeRadioBtn);
+
         Pane addCompanyPane = getAddCompanyPane();
-        addCompanyPane.setVisible(false);
-        addCompanyPane.setManaged(false);
+        Pane addEmployeePane = getAddEmployeePane();
+
+        addEmployeePane.setVisible(false);
+        addEmployeePane.setManaged(false);
         radioBtnToggleGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-
-
-
 
             RadioButton radioButton = (RadioButton) radioBtnToggleGroup.getSelectedToggle();
             if (radioButton != null){
@@ -117,7 +119,7 @@ public class AppMainView extends Application {
                 }
             }
         });
-        topVbox.getChildren().addAll(radioBtnHbox, addEmployeePane, addCompanyPane);
+        topVbox.getChildren().addAll(radioBtnHbox, addCompanyPane, addEmployeePane);
         return topVbox;
     }
 
@@ -125,14 +127,19 @@ public class AppMainView extends Application {
         HBox employeeHBox = new HBox();
         TextField firstName = new TextField();
         firstName.setPromptText("First name");
+        styles.getTextFieldStyle(firstName);
         TextField lastName = new TextField();
         lastName.setPromptText("Last name");
+        styles.getTextFieldStyle(lastName);
         TextField position = new TextField();
         position.setPromptText("Position");
+        styles.getTextFieldStyle(position);
         TextField email = new TextField();
         email.setPromptText("Email");
+        styles.getTextFieldStyle(email);
 
         Button addBtn = new Button("Add");
+        styles.setAddBtnStyle(addBtn);
         addBtn.setOnAction(p->{
             EmployeeVO employeeVO = createNewEmployee(firstName, lastName, position, email);
             employeeBD.saveEmployee(employeeVO);
@@ -142,9 +149,8 @@ public class AppMainView extends Application {
         employeeHBox.getChildren().addAll(firstName, lastName, position, email, addBtn);
 
         VBox employeeVBox = new VBox();
+        styles.setVBoxStyle(employeeVBox);
         employeeVBox.getChildren().addAll(employeeHBox,addBtn);
-        //employeeVBox.setVisible(false);
-
         return employeeVBox;
     }
 
@@ -155,11 +161,6 @@ public class AppMainView extends Application {
         employeeVO.setPosition(position.getText());
         employeeVO.setEmail(email.getText());
 
-//        CompanyVO companyVO = getSelectedCompany();
-//        if(companyVO==null){
-//            throw new RuntimeException("No company selected");
-//        }
-//        employeeVO.setCompany(companyVO.getId());
         employeeVO.setCompany(getSelectedCompany().getId());
         return employeeVO;
     }
@@ -187,12 +188,17 @@ public class AppMainView extends Application {
         TextField name = new TextField();
 
         name.setPromptText("Name");
+        styles.getTextFieldStyle(name);
+
         TextField address = new TextField();
         address.setPromptText("Address");
+        styles.getTextFieldStyle(address);
         TextField nip = new TextField();
         nip.setPromptText("Nip");
+        styles.getTextFieldStyle(nip);
 
         Button addBtn = new Button("Add");
+        styles.setAddBtnStyle(addBtn);
 
         addBtn.setOnAction(p-> {
             CompanyVO companyVO = createNewCompany(name, address, nip);
@@ -205,7 +211,7 @@ public class AppMainView extends Application {
 
         VBox companyVBox = new VBox();
         companyVBox.getChildren().addAll(companyHBox, addBtn);
-        //companyVBox.setVisible(true);
+        styles.setVBoxStyle(companyVBox);
         return companyVBox;
     }
 
@@ -227,9 +233,11 @@ public class AppMainView extends Application {
 
     private Pane addDeleteBtnPane() {
         HBox deleteBtnHbox = new HBox();
+        deleteBtnHbox.setSpacing(50);
         Button deleteBtn = new Button("Delete");
         deleteBtn.setOnAction(p->removeAction());
         deleteBtnHbox.getChildren().add(deleteBtn);
+        styles.setDeleteBtnStyle(deleteBtn);
         return deleteBtnHbox;
     }
 
@@ -253,6 +261,8 @@ public class AppMainView extends Application {
     private TextField getSearchTextField(){
       TextField search = new TextField();
         search.setPromptText("Search");
+        //setSearchStyle(search);
+
         search.textProperty().addListener((observable,oldValue,newValue)->{
             searchValue = newValue;
             refreshDataEmployeesTable();
@@ -300,19 +310,12 @@ public class AppMainView extends Application {
 
         idTableColumn.setCellValueFactory(new PropertyValueFactory<EmployeeVO, String>("id"));
         firstNameTableColumn.setCellValueFactory(new PropertyValueFactory<EmployeeVO, String>("firstName"));
-        firstNameTableColumn.setCellValueFactory(new PropertyValueFactory<EmployeeVO, String>("lastName"));
-        lastNameTableColumn.setCellValueFactory(new PropertyValueFactory<EmployeeVO, String>("position"));
+        lastNameTableColumn.setCellValueFactory(new PropertyValueFactory<EmployeeVO, String>("lastName"));
+        positionTableColumn.setCellValueFactory(new PropertyValueFactory<EmployeeVO, String>("position"));
         emailTableColumn.setCellValueFactory(new PropertyValueFactory<EmployeeVO, String>("email"));
 
         employeesTableView.getColumns().addAll(firstNameTableColumn, lastNameTableColumn, positionTableColumn, emailTableColumn);
         employeesTableView.setVisible(false);
         return employeesTableView;
-    }
-
-    private static void configureBorder(final Region region){
-        region.setStyle("-fx-background-color: white;"
-                + "-fx-border-color: black;"
-                + "-fx-border-width: 1;"
-                + "-fx-padding: 6;");
     }
 }
