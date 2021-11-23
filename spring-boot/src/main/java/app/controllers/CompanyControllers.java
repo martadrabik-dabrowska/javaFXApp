@@ -24,7 +24,7 @@ public class CompanyControllers {
     private EmployeeRepo employeeRepo;
 
     @GetMapping("/companies")
-    List<Company> allCompanies (){
+    public List<Company> allCompanies(){
         return companyRepo.findAll();
     }
 
@@ -37,7 +37,7 @@ public class CompanyControllers {
     }
 
     @PostMapping("/newcompany")
-    Company newEmployee(@RequestBody Company newCompany){
+    public Company addNewCompany(@RequestBody Company newCompany){
         logger.log(Level.INFO, "Added a new company {0}", newCompany.getName());
         return companyRepo.save(newCompany);
     }

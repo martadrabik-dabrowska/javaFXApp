@@ -8,9 +8,6 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import javax.print.DocFlavor;
-import java.net.URI;
-import java.net.URL;
 import java.util.Collections;
 
 @Service
@@ -31,7 +28,6 @@ public class CompanyBD {
         return FXCollections.observableArrayList(responseEntity.getBody());
     }
 
-
     public void saveCompany(CompanyVO companyVO){
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -41,8 +37,6 @@ public class CompanyBD {
         String url = "http://localhost:8092/newcompany";
 
        restTemplate.postForEntity(url,companyVO,String.class);
-
-
     }
 
     public void remove(CompanyVO selectedCompany){

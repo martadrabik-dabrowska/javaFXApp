@@ -57,5 +57,4 @@ public class Styles {
                 + "-fx-border-style: solid inside;"
                 + "-fx-border-color: lightgrey;");
     }
-
 }

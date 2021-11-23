@@ -1,7 +1,6 @@
 package frontend.business;
 
 
-import frontend.model.CompanyVO;
 import frontend.model.EmployeeVO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,7 +24,6 @@ public class EmployeeBD {
         String url = "http://localhost:8092/employees/{companyId}/{searchValue}";
         ResponseEntity<EmployeeVO[]> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, EmployeeVO[].class, companyId, searchValue);
         return FXCollections.observableArrayList(responseEntity.getBody());
-
     }
 
     public void saveEmployee(EmployeeVO employeeVO){
@@ -42,6 +40,4 @@ public class EmployeeBD {
         String url = "http://localhost:8092/deleteemployee/{id}";
         restTemplate.delete(url, selectedEmployee.getId());
     }
-
-
 }
