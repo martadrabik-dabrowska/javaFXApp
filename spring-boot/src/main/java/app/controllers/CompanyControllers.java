@@ -42,7 +42,7 @@ public class CompanyControllers {
         return companyRepo.save(newCompany);
     }
     @DeleteMapping("/deletecompany/{id}")
-    void deleteCompany(@PathVariable String id){
+    public void deleteCompany(@PathVariable String id){
         logger.log(Level.INFO, "Removed company id = {0}", id);
         companyRepo.deleteById(id);
     }
@@ -50,7 +50,7 @@ public class CompanyControllers {
     @Modifying
     @Transactional
     @PostMapping("/updateCompany")
-    void updateCompany(@RequestBody Company newCompany){
+    public void updateCompany(@RequestBody Company newCompany){
         Company byId = companyRepo.findById(newCompany.getId()).get();
         byId.setName(newCompany.getName());
         byId.setAddress(newCompany.getAddress());

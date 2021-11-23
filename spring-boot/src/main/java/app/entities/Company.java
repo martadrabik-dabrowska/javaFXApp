@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Company implements Serializable {
@@ -86,5 +87,18 @@ public class Company implements Serializable {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Company company = (Company) o;
+        return id.equals(company.id) && Objects.equals(name, company.name) && Objects.equals(address, company.address) && Objects.equals(nip, company.nip) && Objects.equals(employees, company.employees);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, address, nip, employees);
     }
 }

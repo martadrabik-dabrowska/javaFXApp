@@ -19,6 +19,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CompanyControllersTest {
@@ -73,12 +74,22 @@ public class CompanyControllersTest {
     @Test
     public void deleteCompany(){
         //given
-        Company company1 = new Company("1", "PostOffice", "London", "111111111");
-        Company company2 = new Company("2", "NewYorkTimes", "NewYork", "232324345");
-        Company company3 = new Company("3","Tomy's Bakery", "London", "989578495");
+       companyControllers.deleteCompany("id1");
 
-        List<Company> companyList = Arrays.asList(company1, company2, company3);
-        companyRepo.deleteById(company1.getId());
-        Mockito.verify(this.companyRepo, Mockito.times(1)).deleteById(company1.getId());
+        Mockito.verify(this.companyRepo, Mockito.times(1)).deleteById("id1");
+    }
+
+    @Test
+    public void updateCompany(){
+        //given
+        Company company1 = new Company("1", "PostOffice", "London", "111111111");
+        Company company2 = new Company("1", "NewYorkTimes", "NewYork", "232324345");
+        Mockito.when(companyRepo.findById(any())).thenReturn(Optional.of(company1));
+
+        //when
+        companyControllers.updateCompany(company2);
+
+        //then
+        Mockito.verify(this.companyRepo, Mockito.times(1)).saveAndFlush(company2);
     }
 }
