@@ -19,15 +19,15 @@ This app allows:
 
 ### App
 
-![App](spring-boot/src/main/resources/statics/images/screen1.JPG)
+![App](spring-boot/src/main/resources/static/images/screen1.JPG)
 
 - Company table with Employees table
 
-![App](spring-boot/src/main/resources/statics/images/screen2.JPG)
+![App](spring-boot/src/main/resources/static/images/screen2.JPG)
 
 - Edit company
 
-![App](spring-boot/src/main/resources/statics/images/screen3.JPG)
+![App](spring-boot/src/main/resources/static/images/screen3.JPG)
 
 
 
