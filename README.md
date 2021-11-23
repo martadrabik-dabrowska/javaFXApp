@@ -18,7 +18,8 @@ This app allows:
 ## Screenshots
 
 ### App
-![](./src/main/resources/statics/images/screen1.JPG)
+
+![App](./src/main/resources/statics/images/screen1.JPG)
 
 
 
