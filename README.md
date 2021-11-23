@@ -12,6 +12,7 @@ This app allows:
 - viewing company and employee data
 - adding, removing a company and employees
 - editing company data
+- search engine
 - The application includes tests
 
 ## Technologies
