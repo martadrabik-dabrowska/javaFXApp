@@ -21,6 +21,10 @@ This app allows:
 
 ![App](spring-boot/src/main/resources/statics/images/screen1.JPG)
 
+- Company table with Employees table
+
+![App](spring-boot/src/main/resources/statics/images/screen2.JPG)
+
 
 
 ## Technologies
