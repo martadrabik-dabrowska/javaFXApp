@@ -15,7 +15,6 @@ public class EmployeeControllers {
 
     protected final Logger log = Logger.getLogger(getClass().getName());
 
-
     @Autowired
     private EmployeeRepo repo;
 

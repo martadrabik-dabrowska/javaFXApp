@@ -35,6 +35,7 @@ public class EmployeeBD {
         String url = "http://localhost:8092/newemployee/";
         restTemplate.postForEntity(url,employeeVO, String.class);
     }
+
     public void remove(EmployeeVO selectedEmployee){
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://localhost:8092/deleteemployee/{id}";

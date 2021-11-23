@@ -45,6 +45,16 @@ public class CompanyBD {
         restTemplate.delete(url, selectedCompany.getId());
     }
 
+    public void updateCompany(CompanyVO selectedCompany){
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity entity = new HttpEntity(selectedCompany, headers);
+
+        String url = "http://localhost:8092/updateCompany/";
+        restTemplate.postForEntity(url,selectedCompany,CompanyVO.class);
+    }
 
 
 

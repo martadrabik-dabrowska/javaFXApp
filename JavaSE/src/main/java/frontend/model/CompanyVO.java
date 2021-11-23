@@ -1,6 +1,9 @@
 package frontend.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
-public class CompanyVO {
+
+import java.io.Serializable;
+
+public class CompanyVO implements Serializable {
 
     @JsonProperty("id")
     private String id;

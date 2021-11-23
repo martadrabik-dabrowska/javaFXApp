@@ -69,7 +69,6 @@ public class CompanyControllersTest {
         assertEquals(saveCompany.getId(), newCompany.getId());
         assertEquals(saveCompany.getName(), newCompany.getName());
     }
-    
 
     @Test
     public void deleteCompany(){

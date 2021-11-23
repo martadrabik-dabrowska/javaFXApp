@@ -5,9 +5,9 @@ import app.entities.Company;
 import app.repository.CompanyRepo;
 import app.repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,5 +47,14 @@ public class CompanyControllers {
         companyRepo.deleteById(id);
     }
 
-
+    @Modifying
+    @Transactional
+    @PostMapping("/updateCompany")
+    void updateCompany(@RequestBody Company newCompany){
+        Company byId = companyRepo.findById(newCompany.getId()).get();
+        byId.setName(newCompany.getName());
+        byId.setAddress(newCompany.getAddress());
+        byId.setNip(newCompany.getNip());
+        companyRepo.saveAndFlush(byId);
+    }
 }

@@ -6,9 +6,11 @@ import frontend.model.CompanyVO;
 import frontend.model.EmployeeVO;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,11 +50,9 @@ public class AppMainView extends Application {
 
     private Scene createScene() {
         StackPane stackPane = createStackPane();
-
         stackPane.getStyleClass().add("stack");
         styles.setBorderStyle(stackPane);
         Scene scene = new Scene(stackPane, 800, 800);
-
         return scene;
     }
 
@@ -60,16 +60,13 @@ public class AppMainView extends Application {
         StackPane stackPane = new StackPane();
         VBox topVbox = addTopVBox();
         Pane deleteBtnPane = addDeleteBtnPane();
-
         TextField search = getSearchTextField();
         companyTableView = getCompanyTableView();
         refreshDataCompanyTable();
-
         employeesTableView = getEmployeesTableView();
 
         VBox vBox = new VBox();
         vBox.setSpacing(10);
-
         vBox.getChildren().addAll(topVbox,deleteBtnPane, search, companyTableView, employeesTableView);
 
         stackPane.getChildren().add(vBox);
@@ -78,9 +75,7 @@ public class AppMainView extends Application {
 
     private VBox addTopVBox() {
         VBox topVbox = new VBox();
-
         HBox radioBtnHbox = new HBox();
-
         ToggleGroup radioBtnToggleGroup = new ToggleGroup();
         styles.setTopVBoxStyle(topVbox);
 
@@ -220,7 +215,6 @@ public class AppMainView extends Application {
         companyVO.setName(name.getText());
         companyVO.setAddress(address.getText());
         companyVO.setNip(nip.getText());
-
         return companyVO;
     }
 
@@ -250,7 +244,9 @@ public class AppMainView extends Application {
             CompanyVO selectedCompany = getSelectedCompany();
             if (selectedCompany != null){
                 companyBD.remove(selectedCompany);
+                refreshDataEmployeesTable();
                 refreshDataCompanyTable();
+
             }
         }
     }
@@ -261,7 +257,6 @@ public class AppMainView extends Application {
     private TextField getSearchTextField(){
       TextField search = new TextField();
         search.setPromptText("Search");
-        //setSearchStyle(search);
 
         search.textProperty().addListener((observable,oldValue,newValue)->{
             searchValue = newValue;
@@ -273,6 +268,7 @@ public class AppMainView extends Application {
 
     private TableView getCompanyTableView(){
         TableView companyTableView = new TableView();
+        companyTableView.setEditable(true);
 
         TableColumn idTableColumn = new TableColumn();
         idTableColumn.setVisible(false);
@@ -282,11 +278,34 @@ public class AppMainView extends Application {
 
         idTableColumn.setCellValueFactory(new PropertyValueFactory<CompanyVO, String>("id"));
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<CompanyVO, String>("name"));
+
+        nameTableColumn.setEditable(true);
+        nameTableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        nameTableColumn.setOnEditCommit((EventHandler<TableColumn.CellEditEvent<CompanyVO, String>>) event -> {
+            CompanyVO companyVO = event.getRowValue();
+            companyVO.setName(event.getNewValue());
+            companyBD.updateCompany(companyVO);
+        });
+
         addressTableColumn.setCellValueFactory(new PropertyValueFactory<CompanyVO, String>("address"));
+        addressTableColumn.setEditable(true);
+        addressTableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        addressTableColumn.setOnEditCommit((EventHandler<TableColumn.CellEditEvent<CompanyVO, String>>) event -> {
+            CompanyVO companyVO = event.getRowValue();
+            companyVO.setAddress(event.getNewValue());
+            companyBD.updateCompany(companyVO);
+        });
+
         nipTableColumn.setCellValueFactory(new PropertyValueFactory<CompanyVO, String>("nip"));
+        nipTableColumn.setEditable(true);
+        nipTableColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        nipTableColumn.setOnEditCommit((EventHandler<TableColumn.CellEditEvent<CompanyVO, String>>) event -> {
+            CompanyVO companyVO = event.getRowValue();
+            companyVO.setNip(event.getNewValue());
+            companyBD.updateCompany(companyVO);
+        });
 
         companyTableView.getColumns().addAll(nameTableColumn, addressTableColumn, nipTableColumn);
-
         companyTableView.setOnMouseClicked(e->{
             CompanyVO selectionModel = getSelectedCompany();
             if (selectionModel != null){
