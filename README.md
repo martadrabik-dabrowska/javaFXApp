@@ -19,7 +19,7 @@ This app allows:
 
 ### App
 
-![App](./src/main/resources/statics/images/screen1.JPG)
+![App](spring-boot/src/main/resources/statics/images/screen1.JPG)
 
 
 
