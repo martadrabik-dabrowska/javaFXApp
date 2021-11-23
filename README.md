@@ -15,6 +15,12 @@ This app allows:
 - search engine
 - The application includes tests
 
+## Screenshots
+
+### App
+![App](./src/main/resources/statics/images/screen1.JPG)
+
+
 ## Technologies
 * [Spring Boot] - version 2.5.4
 * [JavaFx] 
