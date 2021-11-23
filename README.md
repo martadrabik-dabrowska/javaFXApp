@@ -18,7 +18,7 @@ This app allows:
 ## Screenshots
 
 ### App
-![App](./src/main/resources/statics/images/screen1.JPG)
+![App](./src/main/resources/statics/images/screen1.jpg)
 
 
 ## Technologies
