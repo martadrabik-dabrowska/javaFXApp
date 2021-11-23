@@ -25,6 +25,10 @@ This app allows:
 
 ![App](spring-boot/src/main/resources/statics/images/screen2.JPG)
 
+- Edit company
+
+![App](spring-boot/src/main/resources/statics/images/screen3.JPG)
+
 
 
 ## Technologies
