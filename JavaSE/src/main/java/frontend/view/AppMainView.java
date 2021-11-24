@@ -190,6 +190,8 @@ public class AppMainView extends Application {
         styles.getTextFieldStyle(address);
         TextField nip = new TextField();
         nip.setPromptText("Nip");
+        nip.setTextFormatter(new TextFormatter<>(change ->
+                (change.getControlNewText().matches("([1-9][0-9]*)?")) ? change : null));
         styles.getTextFieldStyle(nip);
 
         Button addBtn = new Button("Add");
