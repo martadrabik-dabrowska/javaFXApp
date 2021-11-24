@@ -122,9 +122,13 @@ public class AppMainView extends Application {
         HBox employeeHBox = new HBox();
         TextField firstName = new TextField();
         firstName.setPromptText("First name");
+        firstName.setTextFormatter(new TextFormatter<>(change ->
+                (change.getControlNewText().matches("([A-Za-z]*)?")) ? change : null));
         styles.getTextFieldStyle(firstName);
         TextField lastName = new TextField();
         lastName.setPromptText("Last name");
+        lastName.setTextFormatter(new TextFormatter<>(change ->
+                (change.getControlNewText().matches("([A-Za-z]*)?")) ? change : null));
         styles.getTextFieldStyle(lastName);
         TextField position = new TextField();
         position.setPromptText("Position");
