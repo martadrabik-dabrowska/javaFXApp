@@ -13,6 +13,7 @@ This app allows:
 - adding, removing a company and employees
 - editing company data
 - search engine
+- simpy validations of the first name, last name, nip
 - The application includes tests
 
 ## Screenshots
